@@ -53,7 +53,7 @@ module Ethon
         base.attach_function :slist_free_all,             :curl_slist_free_all,      [:pointer],                     :void
         base.instance_variable_set(:@blocking, true)
 
-        if Curl.windows?
+        if Curl.windows? && !RUBY_PLATFORM.include?('cygwin')
             base.ffi_lib 'ws2_32'
         else
             base.ffi_lib ::FFI::Library::LIBC
